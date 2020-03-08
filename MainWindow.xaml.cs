@@ -51,6 +51,7 @@ namespace Gdig_dev
             {
                 DnsClient.UseCache = false;
             }
+            Trace.WriteLine("DnsServer:" + DnsServer);
             Trace.WriteLine("recreated DnsServer.");
         }
 
@@ -139,7 +140,7 @@ namespace Gdig_dev
             }
         }
 
-        private void Reconfig(object sender, SelectionChangedEventArgs e)
+        private void Reconfig(object sender, EventArgs e)
         {
             CreateDnsclient();
         }
@@ -148,6 +149,14 @@ namespace Gdig_dev
         {
             CreateDnsclient();
         }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+
+        {
+            System.Diagnostics.Process.Start("https://github.com/XianwuLin/Gdig");
+        }
+
+        
     }
 
 }

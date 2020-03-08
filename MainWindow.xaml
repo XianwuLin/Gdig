@@ -3,17 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Gdig_dev"
+        xmlns:local="clr-namespace:Gdig"
         mc:Ignorable="d"
-        Title="Gdig" Height="548.757" Width="509.353" ResizeMode="CanMinimize">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=tb_domain}">
+        Title="Gdig" Height="550" Width="510" ResizeMode="CanMinimize">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=tb_domain}" Margin="0,0,0.333,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16*"/>
-            <ColumnDefinition Width="487*"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="465"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="bt_dig" Content="Dig" HorizontalAlignment="Left" Margin="377,10,0,0" VerticalAlignment="Top" Width="90" Click="Bt_dig_Click" Height="23" Grid.Column="1"/>
-        <TextBox x:Name="tb_domain" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" KeyDown="tb_domain_KeyDown" VerticalContentAlignment="Center" Grid.Column="1" TextChanged="tb_domain_TextChanged"/>
-        <RichTextBox x:Name="rtb_result" HorizontalAlignment="Left" Margin="15,44,0,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Calibri" VerticalScrollBarVisibility="Visible" Block.LineHeight="6" Height="430" Grid.ColumnSpan="2" Width="473" PreviewMouseDown="Rtb_Result_PreviewMouseDown">
+        <Button x:Name="bt_dig" Content="Dig" HorizontalAlignment="Left" Margin="377,10,0,0" VerticalAlignment="Top" Width="80" Click="Bt_dig_Click" Height="23" Grid.Column="1"/>
+        <TextBox x:Name="tb_domain" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" KeyDown="tb_domain_KeyDown" VerticalContentAlignment="Center" Grid.Column="1"/>
+        <RichTextBox x:Name="rtb_result" HorizontalAlignment="Center" Margin="0,44,0,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Calibri" VerticalScrollBarVisibility="Visible" Block.LineHeight="6" Height="430" Grid.Column="1" PreviewMouseDown="Rtb_Result_PreviewMouseDown">
             <FlowDocument/>
         </RichTextBox>
         <Expander x:Name="ep_options" Header="More Options" HorizontalAlignment="Left" Height="164" Margin="15,339,0,0" VerticalAlignment="Top" Width="296" RenderTransformOrigin="-0.066,1.928" ExpandDirection="Up" Grid.ColumnSpan="2" SnapsToDevicePixels="True">
@@ -22,7 +23,7 @@
                     <ColumnDefinition Width="0*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cbb_nameservers" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="97,14,0,0" VerticalAlignment="Top" Width="159" FontSize="10" SelectedIndex="0" SelectionChanged="Reconfig">
+                <ComboBox x:Name="cbb_nameservers" Grid.ColumnSpan="8" HorizontalAlignment="Left" Margin="97,14,0,0" VerticalAlignment="Top" Width="159" FontSize="10" SelectedIndex="0" DropDownClosed="Reconfig" Padding="6,3,5,3" VerticalContentAlignment="Center" FontFamily="Calibri">
                     <ComboBoxItem Content="114 -> 114.114.114.114:53" HorizontalAlignment="Left" Width="157"/>
                     <ComboBoxItem Content="DNSPOD -> 119.29.29.29:53" HorizontalAlignment="Left" Width="157"/>
                 </ComboBox>
@@ -42,13 +43,13 @@
         </Expander>
         <Label Content="Type" HorizontalAlignment="Left" Height="16" Margin="246,14,0,0" VerticalAlignment="Top" Width="31" Padding="0" Grid.Column="1"/>
         <Label Content="Query" HorizontalAlignment="Left" Height="16" Margin="15,14,0,0" VerticalAlignment="Top" Width="36" Padding="0" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="cb_type" HorizontalAlignment="Left" Margin="282,11,0,0" VerticalAlignment="Top" Width="80" SelectedIndex="0" Grid.Column="1">
+        <ComboBox x:Name="cb_type" HorizontalAlignment="Left" Margin="282,11,0,0" VerticalAlignment="Top" Width="80" SelectedIndex="0" Grid.Column="1" Height="21.24">
             <ComboBoxItem Content="A" HorizontalAlignment="Left" Width="80"/>
             <ComboBoxItem Content="CNAME" HorizontalAlignment="Left" Width="80"/>
         </ComboBox>
         <Button x:Name="bt_clear" Content="Clear" HorizontalAlignment="Left" Margin="243,484,0,0" VerticalAlignment="Top" Width="65" Click="Bt_clear_Click" Height="19" Grid.Column="1"/>
         <Button x:Name="bt_copy" Content="Copy" HorizontalAlignment="Left" Margin="317,484,0,0" VerticalAlignment="Top" Width="64" Click="Bt_copy_Click" Height="19" Grid.Column="1"/>
         <Button x:Name="bt_save" Content="Save" HorizontalAlignment="Left" Margin="392,484,0,0" VerticalAlignment="Top" Width="64" Click="Bt_save_Click" Height="19" Grid.Column="1"/>
-
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="465.999,4.75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15.24" Width="5.793" Grid.ColumnSpan="2"><Hyperlink NavigateUri="https://github.com/XianwuLin/Gdig" ToolTip="About" Click="About_Click">?</Hyperlink></TextBlock>
     </Grid>
 </Window>
