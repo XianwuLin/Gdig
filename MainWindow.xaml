@@ -5,51 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gdig"
         mc:Ignorable="d"
-        Title="Gdig" Height="550" Width="510" ResizeMode="CanMinimize">
+        Title="Gdig" Height="560" Width="510" ResizeMode="CanMinimize">
     <Grid FocusManager.FocusedElement="{Binding ElementName=tb_domain}" Margin="0,0,0.333,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="430"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="465"/>
+            <ColumnDefinition Width="243"/>
+            <ColumnDefinition Width="77"/>
+            <ColumnDefinition Width="57"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="56.5"/>
+            <ColumnDefinition Width="13"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="bt_dig" Content="Dig" HorizontalAlignment="Left" Margin="377,10,0,0" VerticalAlignment="Top" Width="80" Click="Bt_dig_Click" Height="23" Grid.Column="1"/>
-        <TextBox x:Name="tb_domain" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" KeyDown="tb_domain_KeyDown" VerticalContentAlignment="Center" Grid.Column="1"/>
-        <RichTextBox x:Name="rtb_result" HorizontalAlignment="Center" Margin="0,44,0,0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Calibri" VerticalScrollBarVisibility="Visible" Block.LineHeight="6" Height="430" Grid.Column="1" PreviewMouseDown="Rtb_Result_PreviewMouseDown">
-            <FlowDocument/>
-        </RichTextBox>
-        <Expander x:Name="ep_options" Header="More Options" HorizontalAlignment="Left" Height="164" Margin="15,339,0,0" VerticalAlignment="Top" Width="296" RenderTransformOrigin="-0.066,1.928" ExpandDirection="Up" Grid.ColumnSpan="2" SnapsToDevicePixels="True">
-            <Grid Margin="0,0,0,8" Background="#FF232222" ShowGridLines="True">
+
+        <Button x:Name="bt_dig" Content="Dig" HorizontalAlignment="Left" Margin="0,1" VerticalAlignment="Center" Width="80" Click="Bt_dig_Click" Height="23" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="tb_domain" HorizontalAlignment="Left" Height="23" Margin="40,1,0,1" TextWrapping="Wrap" VerticalAlignment="Center" Width="196" KeyDown="tb_domain_KeyDown" VerticalContentAlignment="Center" Grid.Column="1" AutomationProperties.IsRowHeader="True" Grid.Row="1"/>
+        <Expander x:Name="ep_options" Header="More Options" HorizontalAlignment="Left" Height="164" Margin="0,300,0,0" VerticalAlignment="Top" Width="288" RenderTransformOrigin="-0.066,1.928" ExpandDirection="Up" Grid.ColumnSpan="2" SnapsToDevicePixels="True" Grid.Row="3" Grid.RowSpan="3" Grid.Column="1" Panel.ZIndex="100">
+            <Grid Margin="0,0,0,8" Background="#FF232222" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="295*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cbb_nameservers" Grid.ColumnSpan="8" HorizontalAlignment="Left" Margin="97,14,0,0" VerticalAlignment="Top" Width="159" FontSize="10" SelectedIndex="0" DropDownClosed="Reconfig" Padding="6,3,5,3" VerticalContentAlignment="Center" FontFamily="Calibri">
-                    <ComboBoxItem Content="114 -> 114.114.114.114:53" HorizontalAlignment="Left" Width="157"/>
-                    <ComboBoxItem Content="DNSPOD -> 119.29.29.29:53" HorizontalAlignment="Left" Width="157"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="12"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cbb_nameservers" HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Center" Width="172" SelectedIndex="0" DropDownClosed="Reconfig" Padding="6,3,5,3" VerticalContentAlignment="Center" FontFamily="Calibri" Height="24" Grid.Column="1" Grid.Row="1">
+                    <ComboBoxItem Content="114 -> 114.114.114.114:53"/>
+                    <ComboBoxItem Content="DNSPOD -> 119.29.29.29:53"/>
+                    <ComboBoxItem Content="阿里云 -> 223.5.5.5:53"/>
+                    <ComboBoxItem Content="TUNA -> 101.6.6.6:53"/>
+                    <ComboBoxItem Content="GOOGLE -> 8.8.8.8:53"/>
                 </ComboBox>
-                <Label Content="NameServer" Padding="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="15" Margin="13.335,17.234,0,0" VerticalAlignment="Top" Width="79.667" Foreground="White"/>
-                <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="262,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="11">
+                <Label Content="NameServer" Padding="0" HorizontalAlignment="Left" Height="15" Margin="0" VerticalAlignment="Center" Width="80" Foreground="White" Grid.Column="1" Panel.ZIndex="101" Grid.Row="1"/>
+                <!--<TextBlock HorizontalAlignment="Left" Margin="257,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="11" Grid.Column="1" Height="14" Width="24" Grid.Row="1" Panel.ZIndex="103">
                     <Hyperlink NavigateUri="" >
                         edit
                     </Hyperlink>
-                </TextBlock>
-                <Label Content="TCP" Padding="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="15" Margin="13.335,47.236,0,0" VerticalAlignment="Top" Width="79.667" Foreground="White"/>
-                <CheckBox x:Name="cb_tcp" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="146.623,48.195,0,0" VerticalAlignment="Top" Checked="Reconfig" Unchecked="Reconfig"/>
-                <Label Content="No Cache" Padding="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="15" Margin="13.335,73.904,0,0" VerticalAlignment="Top" Width="100.318" Foreground="White"/>
-                <CheckBox x:Name="cb_nocache" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="146.623,74.858,0,0" VerticalAlignment="Top" IsChecked="True" Checked="Reconfig" Unchecked="Reconfig"/>
-                <Label Content="Autoclear output" Padding="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="15" Margin="13.335,100.572,0,0" VerticalAlignment="Top" Width="100.318" Foreground="White"/>
-                <CheckBox x:Name="cb_autoclear" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Margin="146.623,101.522,0,0" VerticalAlignment="Top" IsChecked="True" Checked="Reconfig" Unchecked="Reconfig"/>
+                </TextBlock>-->
+                <Label Content="TCP" Padding="0" HorizontalAlignment="Left" Height="15" Margin="0" VerticalAlignment="Center" Width="80" Foreground="White" Grid.Row="3" Grid.Column="1"/>
+                <CheckBox x:Name="cb_tcp"  HorizontalAlignment="Left" Margin="130,0,0,0" VerticalAlignment="Center" Checked="Reconfig" Unchecked="Reconfig" Grid.Column="1" Grid.Row="3" Height="16" Width="16"/>
+                <Label Content="No Cache" Padding="0" HorizontalAlignment="Left" Height="15" Margin="0,6,0,0" VerticalAlignment="Top" Width="101" Foreground="White" Grid.Row="5" Grid.Column="1"/>
+                <CheckBox x:Name="cb_nocache"  HorizontalAlignment="Left" Margin="130,0,0,0" VerticalAlignment="Center" IsChecked="True" Checked="Reconfig" Unchecked="Reconfig" Grid.Column="1" Grid.Row="5" Height="16" Width="16"/>
+                <Label Content="Autoclear output" Padding="0" HorizontalAlignment="Left" Height="15" Margin="0,4,0,0" VerticalAlignment="Top" Width="101" Foreground="White" Grid.Row="7" Grid.Column="1"/>
+                <CheckBox x:Name="cb_autoclear"  HorizontalAlignment="Left" Margin="130,0,0,0" VerticalAlignment="Center" IsChecked="True" Checked="Reconfig" Unchecked="Reconfig" Grid.Column="1" Grid.Row="7" Height="16" Width="16"/>
             </Grid>
         </Expander>
-        <Label Content="Type" HorizontalAlignment="Left" Height="16" Margin="246,14,0,0" VerticalAlignment="Top" Width="31" Padding="0" Grid.Column="1"/>
-        <Label Content="Query" HorizontalAlignment="Left" Height="16" Margin="15,14,0,0" VerticalAlignment="Top" Width="36" Padding="0" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="cb_type" HorizontalAlignment="Left" Margin="282,11,0,0" VerticalAlignment="Top" Width="80" SelectedIndex="0" Grid.Column="1" Height="21.24">
-            <ComboBoxItem Content="A" HorizontalAlignment="Left" Width="80"/>
-            <ComboBoxItem Content="CNAME" HorizontalAlignment="Left" Width="80"/>
+        <Label Content="Type" HorizontalAlignment="Left" Height="16" Margin="2,5,0,4" VerticalAlignment="Center" Width="31" Padding="0" Grid.Column="2" Grid.Row="1"/>
+        <RichTextBox x:Name="rtb_result" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Calibri" VerticalScrollBarVisibility="Visible" Block.LineHeight="6" Height="430" Grid.Column="1" PreviewMouseDown="Rtb_Result_PreviewMouseDown" Grid.Row="3" MinWidth="0" Grid.ColumnSpan="6">
+            <FlowDocument/>
+        </RichTextBox>
+        <Label Content="Query" HorizontalAlignment="Left" Margin="0,5,0,4" Width="36" Padding="0" Grid.Column="1" Grid.Row="1"/>
+        <ComboBox x:Name="cb_type" HorizontalAlignment="Left" Margin="38,2,0,2" VerticalAlignment="Center" Width="80" SelectedIndex="0" Grid.Column="2" Height="21" Grid.Row="1" Grid.ColumnSpan="2">
         </ComboBox>
-        <Button x:Name="bt_clear" Content="Clear" HorizontalAlignment="Left" Margin="243,484,0,0" VerticalAlignment="Top" Width="65" Click="Bt_clear_Click" Height="19" Grid.Column="1"/>
-        <Button x:Name="bt_copy" Content="Copy" HorizontalAlignment="Left" Margin="317,484,0,0" VerticalAlignment="Top" Width="64" Click="Bt_copy_Click" Height="19" Grid.Column="1"/>
-        <Button x:Name="bt_save" Content="Save" HorizontalAlignment="Left" Margin="392,484,0,0" VerticalAlignment="Top" Width="64" Click="Bt_save_Click" Height="19" Grid.Column="1"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="465.999,4.75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15.24" Width="5.793" Grid.ColumnSpan="2"><Hyperlink NavigateUri="https://github.com/XianwuLin/Gdig" ToolTip="About" Click="About_Click">?</Hyperlink></TextBlock>
+        <Button x:Name="bt_clear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Center" Width="64" Click="Bt_clear_Click" Height="23" Grid.Column="2" Grid.Row="5" Margin="0" Panel.ZIndex="110"/>
+        <Button x:Name="bt_copy" Content="Copy" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="64" Click="Bt_copy_Click" Height="23" Grid.Column="5" Grid.Row="5" Grid.ColumnSpan="2"/>
+        <Button x:Name="bt_save" Content="Save" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="64" Click="Bt_save_Click" Height="23" Grid.Column="3" Grid.Row="5" Panel.ZIndex="50" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Column="7" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Width="6" Grid.RowSpan="2" Margin="0,-2,0,0"><Hyperlink NavigateUri="https://github.com/XianwuLin/Gdig" ToolTip="About" Click="About_Click">?</Hyperlink></TextBlock>
     </Grid>
 </Window>

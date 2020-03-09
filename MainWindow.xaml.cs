@@ -1,6 +1,7 @@
 ﻿using DnsClient;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,50 @@ namespace Gdig_dev
         private LookupClient DnsClient;
         private String DnsServer;
         private Boolean IsWindowInitialized;
+
+
+        ///// <summary>
+        ///// 判断.Net Framework的Version是否符合需要
+        ///// (.Net Framework 版本在2.0及以上)
+        ///// </summary>
+        ///// <param name="version">需要的版本 version = 4.5</param>
+        ///// <returns></returns>
+        //private static bool GetDotNetVersion(string version)
+        //{
+        //    string oldname = "0";
+        //    using (RegistryKey ndpKey =
+        //        RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").
+        //        OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+        //    {
+        //        foreach (string versionKeyName in ndpKey.GetSubKeyNames())
+        //        {
+        //            if (versionKeyName.StartsWith("v"))
+        //            {
+        //                RegistryKey versionKey = ndpKey.OpenSubKey(versionKeyName);
+        //                string newname = (string)versionKey.GetValue("Version", "");
+        //                if (string.Compare(newname, oldname) > 0)
+        //                {
+        //                    oldname = newname;
+        //                }
+        //                if (newname != "")
+        //                {
+        //                    continue;
+        //                }
+        //                foreach (string subKeyName in versionKey.GetSubKeyNames())
+        //                {
+        //                    RegistryKey subKey = versionKey.OpenSubKey(subKeyName);
+        //                    newname = (string)subKey.GetValue("Version", "");
+        //                    if (string.Compare(newname, oldname) > 0)
+        //                    {
+        //                        oldname = newname;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return string.Compare(oldname, version) > 0 ? true : false;
+        //}
+
 
         private void CreateDnsclient()
         {
@@ -55,9 +100,20 @@ namespace Gdig_dev
             Trace.WriteLine("recreated DnsServer.");
         }
 
+        private void fill_data()
+        {
+            List<string> dnsTypes = new List<string> { "A", "AAAA", "CNAME", "MX", "NS", "PTR", "CERT", "SRV", "TXT", "SOA" };
+            foreach(string dnsType in dnsTypes)
+            {
+                cb_type.Items.Add(dnsType);
+            }
+            cb_type.SelectedIndex = 0;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            fill_data();
             IsWindowInitialized = true;
             CreateDnsclient();
         }
@@ -85,7 +141,8 @@ namespace Gdig_dev
             {
                 result = "Query Domain should not empty.";
             }
-            else {
+            else 
+            {
                 string dnsResult = "";
                 try
                 {
@@ -94,7 +151,11 @@ namespace Gdig_dev
                 }
                 catch (DnsResponseException e1)
                 {
-                    dnsResult = String.Format("Dns fetch fail({0})", e1.Code);
+                    dnsResult = e1.AuditTrail.Split(new[] { '\r', '\n' }).FirstOrDefault();
+                }
+                catch(Exception e2)
+                {
+                    dnsResult = e2.ToString();
                 }
                 result = String.Format("; <<>> Gdig {0} <<>> @{1} {2}\n", version, DnsServer, domain);
                 result += dnsResult;
