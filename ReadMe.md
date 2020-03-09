@@ -4,7 +4,7 @@ This is a GUI tool for `dig` in windows, depends on DnsClient, Inspired from [EZ
 
 It looks like:
 
-![main](C:\Users\linxianwu\source\repos\Gdig\main.png)
+![main.png](main.png)
 
 Dependencies:
 
