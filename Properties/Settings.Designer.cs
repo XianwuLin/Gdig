@@ -22,5 +22,90 @@ namespace Gdig.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A;AAAA;CNAME;MX;NS;PTR;CERT;SRV;TXT;SOA")]
+        public string dnsTypes {
+            get {
+                return ((string)(this["dnsTypes"]));
+            }
+            set {
+                this["dnsTypes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int dnsTypesIndex {
+            get {
+                return ((int)(this["dnsTypesIndex"]));
+            }
+            set {
+                this["dnsTypesIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("114 -> 114.114.114.114:53;DNSPOD -> 119.29.29.29:53;阿里云 -> 223.5.5.5:53;TUNA -> 1" +
+            "01.6.6.6:53;GOOGLE -> 8.8.8.8:53")]
+        public string nameServers {
+            get {
+                return ((string)(this["nameServers"]));
+            }
+            set {
+                this["nameServers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int nameServersIndex {
+            get {
+                return ((int)(this["nameServersIndex"]));
+            }
+            set {
+                this["nameServersIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool tcp {
+            get {
+                return ((bool)(this["tcp"]));
+            }
+            set {
+                this["tcp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool noCache {
+            get {
+                return ((bool)(this["noCache"]));
+            }
+            set {
+                this["noCache"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool autoClear {
+            get {
+                return ((bool)(this["autoClear"]));
+            }
+            set {
+                this["autoClear"] = value;
+            }
+        }
     }
 }

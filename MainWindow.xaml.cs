@@ -12,8 +12,92 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace Gdig_dev
+namespace Gdig
 {
+
+    public class ElementData
+    {
+        protected object element;
+        protected string configName;
+
+        protected void UpdateAppConfig(string name, object value)
+        {
+            Properties.Settings.Default[name] = value;
+        }
+
+    }
+
+    public class ComBoBoxData : ElementData
+    {
+        protected new ComboBox element;
+        public ComBoBoxData(ComboBox obj, string configName)
+        {
+            this.element = obj;
+            this.configName = configName;
+        }
+
+        public class CbbObject
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
+        public void FillElement()
+        {
+            List<CbbObject> cbbList = new List<CbbObject>();
+            Trace.WriteLine((string)Properties.Settings.Default[configName]);
+            List<string> strs = new List<string>(((string)Properties.Settings.Default[configName]).Split(new char[] { ';' }));
+            for (var i = 0; i < strs.Count; i++)
+            {
+                cbbList.Add(new CbbObject { ID = i, Name = strs[i] });
+            }
+            this.element.ItemsSource = cbbList;
+            string index = configName + "Index";
+            this.element.SelectedIndex = (int)Properties.Settings.Default[index];
+        }
+
+        public void UpdateConfig()
+        {
+            List<string> cbbList = new List<string>();
+            foreach (var item in this.element.Items)
+            {
+                cbbList.Add(item.ToString()); ;
+            }
+
+            UpdateAppConfig(configName, string.Join(";", cbbList));
+
+            string configNameIndex = configName + "Index";
+            UpdateAppConfig(configNameIndex, this.element.SelectedIndex);
+        }
+    }
+
+
+    public class CheckBoxData : ElementData
+    {
+        protected new readonly CheckBox element;
+        public CheckBoxData(CheckBox obj, string configName)
+        {
+            this.element = obj;
+            this.configName = configName;
+        }
+
+        public void FillElement()
+        {
+            bool value = (bool)Properties.Settings.Default[configName];
+            this.element.IsChecked = value;
+        }
+
+        public void UpdateConfig()
+        {
+            UpdateAppConfig(configName, this.element.IsChecked);
+        }
+    }
+
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -23,54 +107,10 @@ namespace Gdig_dev
         private String DnsServer;
         private Boolean IsWindowInitialized;
 
-
-        ///// <summary>
-        ///// 判断.Net Framework的Version是否符合需要
-        ///// (.Net Framework 版本在2.0及以上)
-        ///// </summary>
-        ///// <param name="version">需要的版本 version = 4.5</param>
-        ///// <returns></returns>
-        //private static bool GetDotNetVersion(string version)
-        //{
-        //    string oldname = "0";
-        //    using (RegistryKey ndpKey =
-        //        RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").
-        //        OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
-        //    {
-        //        foreach (string versionKeyName in ndpKey.GetSubKeyNames())
-        //        {
-        //            if (versionKeyName.StartsWith("v"))
-        //            {
-        //                RegistryKey versionKey = ndpKey.OpenSubKey(versionKeyName);
-        //                string newname = (string)versionKey.GetValue("Version", "");
-        //                if (string.Compare(newname, oldname) > 0)
-        //                {
-        //                    oldname = newname;
-        //                }
-        //                if (newname != "")
-        //                {
-        //                    continue;
-        //                }
-        //                foreach (string subKeyName in versionKey.GetSubKeyNames())
-        //                {
-        //                    RegistryKey subKey = versionKey.OpenSubKey(subKeyName);
-        //                    newname = (string)subKey.GetValue("Version", "");
-        //                    if (string.Compare(newname, oldname) > 0)
-        //                    {
-        //                        oldname = newname;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return string.Compare(oldname, version) > 0 ? true : false;
-        //}
-
-
         private void CreateDnsclient()
         {
-            if (!IsWindowInitialized) {
-                Trace.WriteLine("not finished.");
+            if (!IsWindowInitialized)
+            {
                 return;
             }
             string[] dns_server_conf = Regex.Split(cbb_nameservers.Text, "->|:", RegexOptions.IgnoreCase);
@@ -96,18 +136,29 @@ namespace Gdig_dev
             {
                 DnsClient.UseCache = false;
             }
-            Trace.WriteLine("DnsServer:" + DnsServer);
-            Trace.WriteLine("recreated DnsServer.");
+            saveConfigtoAppData();
         }
 
         private void fill_data()
         {
-            List<string> dnsTypes = new List<string> { "A", "AAAA", "CNAME", "MX", "NS", "PTR", "CERT", "SRV", "TXT", "SOA" };
-            foreach(string dnsType in dnsTypes)
+            new ComBoBoxData(cb_type, "dnsTypes").FillElement();
+            new ComBoBoxData(cbb_nameservers, "nameServers").FillElement();
+            new CheckBoxData(cb_tcp, "tcp").FillElement();
+            new CheckBoxData(cb_nocache, "noCache").FillElement();
+            new CheckBoxData(cb_autoclear, "autoClear").FillElement();
+        }
+
+        private void saveConfigtoAppData()
+        {
+            if (!IsWindowInitialized)
             {
-                cb_type.Items.Add(dnsType);
+                return;
             }
-            cb_type.SelectedIndex = 0;
+            new ComBoBoxData(cb_type, "dnsTypes").UpdateConfig();
+            new ComBoBoxData(cbb_nameservers, "nameServers").UpdateConfig();
+            new CheckBoxData(cb_tcp, "tcp").UpdateConfig();
+            new CheckBoxData(cb_nocache, "noCache").UpdateConfig();
+            new CheckBoxData(cb_autoclear, "autoClear").UpdateConfig();
         }
 
         public MainWindow()
@@ -118,12 +169,18 @@ namespace Gdig_dev
             CreateDnsclient();
         }
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+            base.OnClosing(e);
+        }
+
         private void Rtb_Result_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ep_options.IsExpanded = false;
         }
 
-        
+
         private async void Bt_dig_Click(object sender, RoutedEventArgs e)
         {
             string dns_type = cb_type.Text;
@@ -141,7 +198,7 @@ namespace Gdig_dev
             {
                 result = "Query Domain should not empty.";
             }
-            else 
+            else
             {
                 string dnsResult = "";
                 try
@@ -153,7 +210,7 @@ namespace Gdig_dev
                 {
                     dnsResult = e1.AuditTrail.Split(new[] { '\r', '\n' }).FirstOrDefault();
                 }
-                catch(Exception e2)
+                catch (Exception e2)
                 {
                     dnsResult = e2.ToString();
                 }
@@ -161,7 +218,7 @@ namespace Gdig_dev
                 result += dnsResult;
                 result += "\n;;" + string.Concat(Enumerable.Repeat("= ", 30));
             }
-            
+
             rtb_result.Document.Blocks.Add(new Paragraph(new Run(result)));
             rtb_result.ScrollToEnd();
             tb_domain.SelectAll();
@@ -217,7 +274,15 @@ namespace Gdig_dev
             System.Diagnostics.Process.Start("https://github.com/XianwuLin/Gdig");
         }
 
-        
+        private void cb_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            saveConfigtoAppData();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 
 }
