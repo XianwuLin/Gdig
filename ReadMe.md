@@ -6,6 +6,12 @@ It looks like:
 
 ![main.png](main.png)
 
-Dependencies:
+## Dependencies
 
 * .NET Framework 4.7.2
+
+## Feature
+
+* Remember all user configs after close window.
+* Support setting dns servers by yourself.
+* Support dig from a url, you can copy url from browser and paste it to the query field.

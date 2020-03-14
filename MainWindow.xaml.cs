@@ -184,7 +184,17 @@ namespace Gdig
         private async void Bt_dig_Click(object sender, RoutedEventArgs e)
         {
             string dns_type = cb_type.Text;
-            string domain = tb_domain.Text;
+            string domain;
+            try
+            {
+                Uri myUri = new Uri(tb_domain.Text);
+                domain = myUri.Host;
+                tb_domain.Text = domain;
+            }
+            catch (Exception ){
+                domain = tb_domain.Text;
+            }
+            
             string version = "1.0.0";
 
             bool autoclear = (Boolean)cb_autoclear.IsChecked;
@@ -282,6 +292,23 @@ namespace Gdig
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Nameservers win = new Nameservers();
+            win.Closed += new EventHandler(NameServersWindow_Closed);
+            win.Owner = Application.Current.MainWindow;
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.ShowDialog();
+        }
+
+        private void NameServersWindow_Closed(object sender, EventArgs e)
+        {
+            IsWindowInitialized = false;
+            fill_data();
+            IsWindowInitialized = true;
+            CreateDnsclient();
         }
     }
 

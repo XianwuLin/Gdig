@@ -8,9 +8,6 @@
     <Setting Name="dnsTypesIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="nameServers" Type="System.String" Scope="User">
-      <Value Profile="(Default)">114 -&gt; 114.114.114.114:53;DNSPOD -&gt; 119.29.29.29:53;阿里云 -&gt; 223.5.5.5:53;TUNA -&gt; 101.6.6.6:53;GOOGLE -&gt; 8.8.8.8:53</Value>
-    </Setting>
     <Setting Name="nameServersIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -22,6 +19,9 @@
     </Setting>
     <Setting Name="autoClear" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="nameServers" Type="System.String" Scope="User">
+      <Value Profile="(Default)">114 -&gt; 114.114.114.114:53;DNSPOD -&gt; 119.29.29.29:53;Aliyun -&gt; 223.5.5.5:53;TUNA -&gt; 101.6.6.6:53;GOOGLE -&gt; 8.8.8.8:53</Value>
     </Setting>
   </Settings>
 </SettingsFile>

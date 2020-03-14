@@ -49,19 +49,6 @@ namespace Gdig.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("114 -> 114.114.114.114:53;DNSPOD -> 119.29.29.29:53;阿里云 -> 223.5.5.5:53;TUNA -> 1" +
-            "01.6.6.6:53;GOOGLE -> 8.8.8.8:53")]
-        public string nameServers {
-            get {
-                return ((string)(this["nameServers"]));
-            }
-            set {
-                this["nameServers"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int nameServersIndex {
             get {
@@ -105,6 +92,19 @@ namespace Gdig.Properties {
             }
             set {
                 this["autoClear"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("114 -> 114.114.114.114:53;DNSPOD -> 119.29.29.29:53;Aliyun -> 223.5.5.5:53;TUNA -" +
+            "> 101.6.6.6:53;GOOGLE -> 8.8.8.8:53")]
+        public string nameServers {
+            get {
+                return ((string)(this["nameServers"]));
+            }
+            set {
+                this["nameServers"] = value;
             }
         }
     }
